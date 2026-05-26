@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ypepa — La suite numérique gabonaise</title>
+  <meta name="description" content="Coffre-fort numérique, gestion de la paie, facturation et services en ligne. Ypepa digitalise les entreprises et les citoyens gabonais." />
+  <meta property="og:title" content="Ypepa — La suite numérique gabonaise" />
+  <meta property="og:description" content="Coffre-fort numérique, gestion de la paie, facturation et services en ligne." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ypepa.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Variables ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:         #1d4ed8;
+      --blue-light:   #3b82f6;
+      --blue-dark:    #1e3a8a;
+      --green:        #15803d;
+      --green-light:  #22c55e;
+      --gold:         #d97706;
+      --gold-light:   #fbbf24;
+      --teal:         #0d9488;
+      --purple:       #7c3aed;
+      --text:         #0f172a;
+      --text-muted:   #64748b;
+      --bg:           #ffffff;
+      --bg-alt:       #f8fafc;
+      --bg-dark:      #0f172a;
+      --border:       #e2e8f0;
+      --radius:       12px;
+      --radius-lg:    20px;
+      --shadow:       0 4px 24px rgba(0,0,0,.08);
+      --shadow-lg:    0 8px 40px rgba(0,0,0,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+
+    /* ── Layout ────────────────────────────────────────────────────────────── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 88px 0; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: #eff6ff;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .section-head { margin-bottom: 56px; }
+    .section-head.centered { text-align: center; }
+    .section-head.centered .section-subtitle { margin: 0 auto; }
+
+    /* ── Buttons ───────────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(29,78,216,.35); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-outline:hover { background: #eff6ff; transform: translateY(-1px); }
+
+    .btn-white {
+      background: #fff;
+      color: var(--blue);
+    }
+    .btn-white:hover { background: #f0f9ff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+
+    .btn-sm { padding: 9px 20px; font-size: 14px; }
+
+    /* ── Nav ───────────────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .2s;
+    }
+    .nav.scrolled { box-shadow: var(--shadow); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 68px;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--blue);
+      letter-spacing: -.02em;
+      flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin-left: 16px;
+    }
+    .nav-links a {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all .15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg-alt); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .nav-login {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all .15s;
+    }
+    .nav-login:hover { color: var(--text); background: var(--bg-alt); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      margin-left: auto;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all .2s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: var(--shadow-lg);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background .15s;
+    }
+    .mobile-menu a:hover { background: var(--bg-alt); }
+    .mobile-menu .btn { margin-top: 8px; justify-content: center; }
+
+    /* ── Hero ──────────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 144px 0 96px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(59,130,246,.15) 0%, transparent 70%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 6px 14px 6px 8px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      background: var(--green-light);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .4; }
+    }
+    .hero-badge span { font-size: 13px; color: rgba(255,255,255,.85); font-weight: 500; }
+
+    .hero h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      letter-spacing: -.02em;
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--gold-light); }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,.75);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-trust-text {
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+    }
+    .hero-trust-flags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 14px;
+      height: 400px;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .hero-card-main {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+    .hero-card-main .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .hero-card-main h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .hero-card-main p { font-size: 13px; color: rgba(255,255,255,.65); }
+
+    .hero-card-stat {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .hero-card-stat .stat-val { font-size: 1.3rem; font-weight: 800; }
+    .hero-card-stat .stat-lbl { font-size: 12px; color: rgba(255,255,255,.6); }
+
+    .hero-card-2 {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .hero-card-3 {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,.15);
+      border: 1px solid rgba(34,197,94,.3);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--green-light);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .hero-pill::before { content: '✓'; }
+
+    /* ── Stats bar ─────────────────────────────────────────────────────────── */
+    .stats-bar {
+      padding: 48px 0;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item {}
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-lbl {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── Produits ──────────────────────────────────────────────────────────── */
+    .products { background: var(--bg); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .product-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .product-card:hover {
+      border-color: transparent;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .product-card.blue::before  { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
+    .product-card.green::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+    .product-card.gold::before  { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+    .product-card.teal::before  { background: linear-gradient(90deg, var(--teal), #2dd4bf); }
+    .product-card.purple::before { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+
+    .product-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .product-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .product-tag.blue   { background: #eff6ff; color: var(--blue); }
+    .product-tag.green  { background: #f0fdf4; color: var(--green); }
+    .product-tag.gold   { background: #fffbeb; color: var(--gold); }
+    .product-tag.teal   { background: #f0fdfa; color: var(--teal); }
+    .product-tag.purple { background: #f5f3ff; color: var(--purple); }
+
+    .product-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .product-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .product-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+    .product-features li::before {
+      content: '';
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #eff6ff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%231d4ed8'%3E%3Cpath d='M13.5 3.5L6 11 2.5 7.5' stroke='%231d4ed8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+      background-size: 10px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+      transition: gap .2s;
+    }
+    .product-link:hover { gap: 10px; }
+
+    .product-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* ── Pourquoi Ypepa ────────────────────────────────────────────────────── */
+    .why { background: var(--bg-alt); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .why-card {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .why-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .why-icon.blue   { background: #eff6ff; }
+    .why-icon.green  { background: #f0fdf4; }
+    .why-icon.gold   { background: #fffbeb; }
+
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .why-card p  { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── Comment ça marche ─────────────────────────────────────────────────── */
+    .how { background: var(--bg); }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      position: relative;
+    }
+    .how-steps::before {
+      content: '';
+      position: absolute;
+      top: 26px;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      z-index: 0;
+    }
+
+    .how-step { text-align: center; position: relative; z-index: 1; }
+
+    .how-step-num {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 0 6px #eff6ff;
+    }
+
+    .how-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .how-step p  { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── Galaxy ────────────────────────────────────────────────────────────── */
+    .galaxy {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #fff;
+    }
+
+    .galaxy .section-label {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.85);
+    }
+    .galaxy .section-title { color: #fff; }
+    .galaxy .section-subtitle { color: rgba(255,255,255,.65); }
+
+    .galaxy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .galaxy-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all .25s;
+    }
+    .galaxy-card:hover {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.25);
+      transform: translateY(-4px);
+    }
+
+    .galaxy-card-icon { font-size: 2rem; margin-bottom: 14px; }
+    .galaxy-card h3   { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .galaxy-card p    { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.65; }
+
+    .galaxy-status {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-top: 12px;
+    }
+    .status-live    { background: rgba(34,197,94,.2); color: #4ade80; }
+    .status-beta    { background: rgba(251,191,36,.2); color: #fcd34d; }
+    .status-soon    { background: rgba(148,163,184,.15); color: rgba(255,255,255,.5); }
+
+    /* ── Contact ───────────────────────────────────────────────────────────── */
+    .contact { background: var(--bg-alt); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-info h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 16px; }
+    .contact-info p  { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .contact-item-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-item-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .contact-item-body p  { font-size: 13px; color: var(--text-muted); }
+    .contact-item-body a  { color: var(--blue); font-weight: 500; }
+
+    /* Form */
+    .contact-form {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .form-group.full { grid-column: span 2; }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .15s;
+      outline: none;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(29,78,216,.1);
+    }
+
+    .form-group textarea { min-height: 120px; }
+
+    .form-submit { width: 100%; justify-content: center; margin-top: 8px; }
+
+    .form-msg {
+      display: none;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 16px;
+    }
+    .form-msg.success { background: #f0fdf4; color: var(--green); border: 1px solid #bbf7d0; }
+    .form-msg.error   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+    /* ── CTA Banner ────────────────────────────────────────────────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      padding: 72px 0;
+      text-align: center;
+    }
+    .cta-banner h2  { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .cta-banner p   { font-size: 1rem; color: rgba(255,255,255,.75); margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-actions    { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    /* ── Footer ────────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,.7);
+      padding: 56px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .nav-logo {
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .footer-brand p {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.5);
+      max-width: 280px;
+      margin-bottom: 20px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background .15s;
+    }
+    .footer-social a:hover { background: rgba(255,255,255,.15); }
+
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: rgba(255,255,255,.5); transition: color .15s; }
+    .footer-col ul a:hover { color: #fff; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,.35);
+    }
+    .footer-bottom a { color: rgba(255,255,255,.5); transition: color .15s; }
+    .footer-bottom a:hover { color: #fff; }
+
+    /* ── Responsive ────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+      .nav-links, .nav-login { display: none; }
+      .hamburger { display: flex; }
+      .nav-actions .btn { display: none; }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr; gap: 32px; }
+      .how-steps::before { display: none; }
+      .galaxy-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .btn { width: 100%; justify-content: center; }
+      .cta-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ Navigation ════════════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Ypepa<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#galaxy">Galaxy</a></li>
+        <li><a href="#comment">Comment ça marche</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="https://rh.ypepa.com" class="nav-login">Connexion</a>
+        <a href="#contact" class="btn btn-primary btn-sm">Demander une démo</a>
+      </div>
+      <div class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#produits">Produits</a>
+  <a href="#galaxy">Galaxy</a>
+  <a href="#comment">Comment ça marche</a>
+  <a href="#contact">Contact</a>
+  <a href="https://rh.ypepa.com">Connexion</a>
+  <a href="#contact" class="btn btn-primary">Demander une démo</a>
+</div>
+
+<!-- ══ Hero ══════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Conçu pour le Gabon · Made in 🇬🇦</span>
+        </div>
+        <h1>
+          La suite numérique<br />
+          <span class="accent">des entreprises gabonaises</span>
+        </h1>
+        <p class="hero-sub">
+          Coffre-fort de documents, gestion de la paie, facturation et services en ligne.
+          Tout ce qu'il vous faut, dans une seule plateforme sécurisée.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-white">Demander une démo</a>
+          <a href="#produits" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4)">
+            Découvrir les produits
+          </a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-trust-text">Conforme aux réglementations gabonaises</span>
+        </div>
+      </div>
+
+      <!-- Visual cards -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card hero-card-main">
+          <div class="card-icon">🔒</div>
+          <h3>Coffre-Fort Numérique</h3>
+          <p>Vos documents officiels, sécurisés et accessibles partout.</p>
+          <div class="hero-card-stat">
+            <div>
+              <div class="stat-val">AES-256</div>
+              <div class="stat-lbl">Chiffrement</div>
+            </div>
+          </div>
+          <div class="hero-card-stat" style="margin-top:8px">
+            <div>
+              <div class="stat-val">100%</div>
+              <div class="stat-lbl">Données au Gabon</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card hero-card-2">
+          <div class="hero-pill">Paie calculée automatiquement</div>
+          <h3 style="font-size:14px;font-weight:700">Ypepa-RH</h3>
+          <p style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px">CNSS · CNAMGS · IRPP · TCS</p>
+        </div>
+
+        <div class="hero-card hero-card-3">
+          <div class="hero-pill">Conformité DGI</div>
+          <h3 style="font-size:14px;font-weight:700">Ypepa-F</h3>
+          <p style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px">Facturation professionnelle gabonaise</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Stats bar ══════════════════════════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">AES-256</div>
+        <div class="stat-lbl">Chiffrement militaire</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">Conforme droit gabonais</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-lbl">Modules disponibles</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-lbl">Accès à vos données</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Produits ════════════════════════════════════════════════════════════ -->
+<section class="products" id="produits">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Nos produits</div>
+      <h2 class="section-title">Une solution pour chaque besoin</h2>
+      <p class="section-subtitle">
+        Du citoyen qui veut sécuriser ses papiers à l'entreprise qui gère sa paie,
+        Ypepa couvre l'ensemble du cycle numérique.
+      </p>
+    </div>
+
+    <div class="products-grid">
+      <!-- Coffre-Fort — featured -->
+      <div class="product-card blue featured">
+        <div>
+          <div class="product-icon">🔒</div>
+          <div class="product-tag blue">Coffre-Fort Numérique</div>
+          <h3>Stockez et partagez vos documents officiels en toute sécurité</h3>
+          <p>
+            CNI, passeport, acte de naissance, diplômes, factures SEEG… Tous vos documents importants
+            dans un espace chiffré, accessible depuis votre téléphone, même sans connexion.
+          </p>
+          <ul class="product-features">
+            <li>Chiffrement AES-256 de bout en bout</li>
+            <li>Accès hors-ligne (mode offline)</li>
+            <li>Partage sécurisé avec administrations et organismes</li>
+            <li>Application mobile Android & iOS</li>
+          </ul>
+          <a href="#contact" class="product-link">En savoir plus →</a>
+        </div>
+        <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:16px;height:100%;min-height:220px;display:flex;align-items:center;justify-content:center;font-size:5rem;">
+          📱
+        </div>
+      </div>
+
+      <!-- Ypepa-RH -->
+      <div class="product-card green">
+        <div class="product-icon">📊</div>
+        <div class="product-tag green">Ypepa-RH</div>
+        <h3>Gestion de la paie gabonaise</h3>
+        <p>
+          Calculez automatiquement les bulletins de paie selon la réglementation gabonaise en vigueur.
+          Idéal pour les PME et les cabinets comptables.
+        </p>
+        <ul class="product-features">
+          <li>Calcul CNSS, CNAMGS, IRPP, TCS automatique</li>
+          <li>Gestion des salariés, congés et documents RH</li>
+          <li>Module cabinet multi-entreprises</li>
+          <li>Import Excel, export PDF bulletins</li>
+        </ul>
+        <a href="https://rh.ypepa.com" class="product-link">Accéder à Ypepa-RH →</a>
+      </div>
+
+      <!-- Ypepa-F -->
+      <div class="product-card gold">
+        <div class="product-icon">🧾</div>
+        <div class="product-tag gold">Ypepa-F</div>
+        <h3>Facturation professionnelle</h3>
+        <p>
+          Créez des devis et factures conformes à la DGI, gérez vos notes de frais
+          et suivez vos encaissements en temps réel.
+        </p>
+        <ul class="product-features">
+          <li>Facturation conforme DGI Gabon</li>
+          <li>Notes de frais et remboursements</li>
+          <li>Devis → Facture en un clic</li>
+          <li>Suivi des paiements et relances</li>
+        </ul>
+        <a href="#contact" class="product-link">Bientôt disponible →</a>
+      </div>
+
+      <!-- Ypepa-Portail -->
+      <div class="product-card teal">
+        <div class="product-icon">🌐</div>
+        <div class="product-tag teal">Ypepa-Portail</div>
+        <h3>Services en ligne pour tous</h3>
+        <p>
+          Portail public d'annonces d'emploi, de réservations de services et de campagnes
+          pour les entreprises et les citoyens gabonais.
+        </p>
+        <ul class="product-features">
+          <li>Offres d'emploi et candidatures</li>
+          <li>Réservations de services professionnels</li>
+          <li>Campagnes SMS et notifications</li>
+          <li>Annuaire des entreprises gabonaises</li>
+        </ul>
+        <a href="#contact" class="product-link">Bientôt disponible →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Pourquoi Ypepa ══════════════════════════════════════════════════════ -->
+<section class="why" id="pourquoi">
+  <div class="container">
+    <div class="section-head centered">
+      <div class="section-label">Pourquoi Ypepa</div>
+      <h2 class="section-title">Conçu pour le contexte gabonais</h2>
+      <p class="section-subtitle">
+        Pas une solution importée. Une plateforme pensée pour les réalités, les lois
+        et les usages des entreprises et des citoyens au Gabon.
+      </p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon blue">🔐</div>
+        <h3>Sécurité maximale</h3>
+        <p>
+          Chiffrement AES-256 sur toutes vos données. Aucun document n'est accessible
+          sans votre autorisation. Authentification multi-facteur disponible.
+        </p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon green">🇬🇦</div>
+        <h3>100% conforme Gabon</h3>
+        <p>
+          Cotisations CNSS et CNAMGS 2026, barèmes IRPP, réglementation DGI.
+          Vos bulletins et factures sont conformes dès le premier jour.
+        </p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon gold">📶</div>
+        <h3>Pensé pour l'Afrique</h3>
+        <p>
+          Application légère, mode offline intégré pour les zones à faible connectivité.
+          Fonctionne sur les appareils d'entrée de gamme.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Comment ça marche ══════════════════════════════════════════════════ -->
+<section class="how" id="comment">
+  <div class="container">
+    <div class="section-head centered">
+      <div class="section-label">Comment ça marche</div>
+      <h2 class="section-title">Opérationnel en moins de 24h</h2>
+      <p class="section-subtitle">
+        Pas d'installation complexe. Pas de serveur à gérer. Ypepa fonctionne
+        depuis votre navigateur ou votre téléphone.
+      </p>
+    </div>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <h3>Créez votre compte</h3>
+        <p>
+          Inscrivez-vous avec votre email professionnel. Votre espace est isolé
+          et sécurisé dès la création.
+        </p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <h3>Configurez votre structure</h3>
+        <p>
+          Ajoutez vos salariés via import Excel, paramétrez vos taux de cotisation
+          et définissez votre fiche de paie.
+        </p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <h3>Générez et partagez</h3>
+        <p>
+          Bulletins de paie, attestations, documents RH — générés en PDF
+          et envoyés directement dans le coffre-fort de vos salariés.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Galaxy Ypepa ═══════════════════════════════════════════════════════ -->
+<section class="galaxy" id="galaxy">
+  <div class="container">
+    <div class="section-head centered">
+      <div class="section-label">Galaxy Ypepa</div>
+      <h2 class="section-title">Un écosystème complet</h2>
+      <p class="section-subtitle">
+        Chaque module Galaxy enrichit votre expérience Ypepa. Connectés entre eux,
+        ils partagent vos données en toute sécurité.
+      </p>
+    </div>
+
+    <div class="galaxy-grid">
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">🔒</div>
+        <h3>Coffre-Fort Numérique</h3>
+        <p>Stockage chiffré de tous vos documents officiels. Application mobile + web.</p>
+        <div class="galaxy-status status-live">Disponible</div>
+      </div>
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">📊</div>
+        <h3>Ypepa-RH</h3>
+        <p>SIRH complet : paie, congés, dossiers salariés, module cabinet multi-entités.</p>
+        <div class="galaxy-status status-live">Disponible</div>
+      </div>
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">🧾</div>
+        <h3>Ypepa-F</h3>
+        <p>Facturation, devis, notes de frais et conformité DGI pour les entreprises.</p>
+        <div class="galaxy-status status-beta">En développement</div>
+      </div>
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">🌐</div>
+        <h3>Ypepa-Portail</h3>
+        <p>Portail public : emploi, réservations, campagnes et annuaire professionnel.</p>
+        <div class="galaxy-status status-soon">Bientôt</div>
+      </div>
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">🏢</div>
+        <h3>Ypepa for Business</h3>
+        <p>Suite unifiée pour les entreprises : accès à tous les modules depuis un tableau de bord.</p>
+        <div class="galaxy-status status-soon">Bientôt</div>
+      </div>
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">🔗</div>
+        <h3>Portail Salarié</h3>
+        <p>Espace personnel : consultez vos bulletins, vos congés et vos documents RH.</p>
+        <div class="galaxy-status status-soon">Bientôt</div>
+      </div>
+      <div class="galaxy-card">
+        <div class="galaxy-card-icon">🤝</div>
+        <h3>Ypepa-CRM</h3>
+        <p>Gestion de la relation client : prospects, suivi commercial, pipeline et historique des interactions.</p>
+        <div class="galaxy-status status-soon">Bientôt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Contact ════════════════════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Contact</div>
+        <h2>Parlons de votre projet</h2>
+        <p>
+          Vous voulez une démonstration, un devis ou simplement plus d'informations ?
+          Notre équipe vous répond sous 24h ouvrées.
+        </p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-body">
+              <h4>Email</h4>
+              <p><a href="mailto:contact@ypepa.com">contact@ypepa.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-body">
+              <h4>Siège</h4>
+              <p>Libreville, Gabon</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🕐</div>
+            <div class="contact-item-body">
+              <h4>Réponse garantie</h4>
+              <p>Sous 24h ouvrées</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" name="prenom" required placeholder="Jean-Paul" />
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" name="nom" required placeholder="Mbadinga" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email professionnel *</label>
+          <input type="email" id="email" name="email" required placeholder="vous@entreprise.ga" />
+        </div>
+        <div class="form-group">
+          <label for="entreprise">Entreprise</label>
+          <input type="text" id="entreprise" name="entreprise" placeholder="Nom de votre société" />
+        </div>
+        <div class="form-group">
+          <label for="sujet">Je suis intéressé par</label>
+          <select id="sujet" name="sujet">
+            <option value="">Choisir un produit…</option>
+            <option value="coffre-fort">Coffre-Fort Numérique</option>
+            <option value="ypepa-rh">Ypepa-RH (Gestion de la paie)</option>
+            <option value="ypepa-f">Ypepa-F (Facturation)</option>
+            <option value="cabinet">Module Cabinet (multi-entreprises)</option>
+            <option value="autre">Autre / Renseignement général</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required
+            placeholder="Décrivez votre besoin, le nombre de salariés, votre contexte…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">
+          Envoyer ma demande
+        </button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA Banner ═════════════════════════════════════════════════════════ -->
+<div class="cta-banner">
+  <div class="container">
+    <h2>Prêt à digitaliser votre entreprise ?</h2>
+    <p>
+      Rejoignez les entreprises gabonaises qui font confiance à Ypepa
+      pour leur gestion numérique.
+    </p>
+    <div class="cta-actions">
+      <a href="#contact" class="btn btn-white">Demander une démo gratuite</a>
+      <a href="https://rh.ypepa.com" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4)">
+        Accéder à Ypepa-RH
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Footer ═════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">Ypepa<span>.</span></a>
+        <p>
+          La suite numérique des entreprises et des citoyens gabonais.
+          Sécurisé, conforme et conçu pour l'Afrique.
+        </p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/company/ypepa" aria-label="LinkedIn">in</a>
+          <a href="mailto:contact@ypepa.com" aria-label="Email">✉</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Produits</h4>
+        <ul>
+          <li><a href="#produits">Coffre-Fort</a></li>
+          <li><a href="https://rh.ypepa.com">Ypepa-RH</a></li>
+          <li><a href="#produits">Ypepa-F</a></li>
+          <li><a href="#galaxy">Ypepa-Portail</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Entreprise</h4>
+        <ul>
+          <li><a href="#pourquoi">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="mailto:contact@ypepa.com">Partenariats</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Confidentialité</a></li>
+          <li><a href="#">CGU</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Ypepa. Tous droits réservés. Libreville, Gabon.</span>
+      <span>Conçu pour 🇬🇦 le Gabon</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ Scripts ════════════════════════════════════════════════════════════ -->
+<script>
+  // Nav shadow on scroll
+  const nav = document.getElementById('nav')
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20)
+  })
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger')
+  const mobileMenu = document.getElementById('mobileMenu')
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open')
+  })
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'))
+  })
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      mobileMenu.classList.remove('open')
+    }
+  })
+
+  // Contact form — Google Apps Script
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby32gzqgX1Eb9Zba5dZF9cMpkMFCDFL7Gyk_h9TXv-vm5FqFBINftRKzbv3bsznVgM/exec'
+  const form    = document.getElementById('contactForm')
+  const formMsg = document.getElementById('formMsg')
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault()
+    const btn = form.querySelector('button[type="submit"]')
+    btn.disabled = true
+    btn.textContent = 'Envoi en cours…'
+    formMsg.style.display = 'none'
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new FormData(form),
+      })
+      formMsg.className = 'form-msg success'
+      formMsg.textContent = '✓ Message envoyé ! Nous vous répondons sous 24h ouvrées.'
+      formMsg.style.display = 'block'
+      form.reset()
+    } catch {
+      formMsg.className = 'form-msg error'
+      formMsg.textContent = 'Erreur lors de l\'envoi. Écrivez-nous directement à contact@ypepa.com'
+      formMsg.style.display = 'block'
+    }
+
+    btn.disabled = false
+    btn.textContent = 'Envoyer ma demande'
+  })
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'))
+      if (target) {
+        e.preventDefault()
+        const offset = 80
+        const top = target.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top, behavior: 'smooth' })
+      }
+    })
+  })
+</script>
+</body>
+</html>
