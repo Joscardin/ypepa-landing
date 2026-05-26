@@ -1400,7 +1400,7 @@
       await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: new FormData(form),
+        body: new URLSearchParams(new FormData(form)),
       })
       formMsg.className = 'form-msg success'
       formMsg.textContent = '✓ Message envoyé ! Nous vous répondons sous 24h ouvrées.'
