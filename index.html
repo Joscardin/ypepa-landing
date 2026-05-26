@@ -1397,10 +1397,10 @@
     formMsg.style.display = 'none'
 
     try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
+      const params = new URLSearchParams(new FormData(form))
+      await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
+        method: 'GET',
         mode: 'no-cors',
-        body: new URLSearchParams(new FormData(form)),
       })
       formMsg.className = 'form-msg success'
       formMsg.textContent = '✓ Message envoyé ! Nous vous répondons sous 24h ouvrées.'
