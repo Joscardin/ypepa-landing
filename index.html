@@ -1407,20 +1407,23 @@
     })
 
     try {
+      const searchParams = new URLSearchParams(new FormData(form))
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body: new FormData(form),
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: searchParams.toString(),
       })
-      const data = await response.json()
-      if (!response.ok || data.status !== 'success') {
-        throw new Error(data.message || `HTTP ${response.status}`)
+      const result = await response.json()
+      if (result.status !== 'success') {
+        throw new Error(result.message || `HTTP ${response.status}`)
       }
       formMsg.className = 'form-msg success'
       formMsg.textContent = '✓ Message envoyé ! Nous vous répondons sous 24h ouvrées.'
       formMsg.style.display = 'block'
       form.reset()
     } catch (error) {
-      console.error('Erreur soumission formulaire :', error)
+      console.error('Erreur détaillée :', error)
       formMsg.className = 'form-msg error'
       formMsg.textContent = 'Erreur lors de l\'envoi. Écrivez-nous directement à contact@ypepa.com'
       formMsg.style.display = 'block'
