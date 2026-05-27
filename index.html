@@ -1247,6 +1247,11 @@
       </div>
 
       <form class="contact-form" id="contactForm">
+        <!-- Honeypot anti-spam : invisible pour les humains, rempli par les bots -->
+        <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+          <label for="website">Ne pas remplir ce champ</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="form-row">
           <div class="form-group">
             <label for="prenom">Prénom *</label>
@@ -1385,7 +1390,7 @@
   })
 
   // Contact form — Google Apps Script
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7knZ7Xc9RhAZYr3VgdMZAeQLC4o-XwtjP27aMM9uwVotAJtX8dXG3P3BKcDV7RU4a/exec'
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby0sCi8a2xhPjLqYCy6koy96t6zxOVh99RTckKCRKwm_lHFNuyGoIwIZH3zQ1ooC-jz/exec'
   const form    = document.getElementById('contactForm')
   const formMsg = document.getElementById('formMsg')
 
@@ -1396,17 +1401,26 @@
     btn.textContent = 'Envoi en cours…'
     formMsg.style.display = 'none'
 
+    // Trim des champs texte avant envoi
+    form.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(el => {
+      el.value = el.value.trim()
+    })
+
     try {
-      const params = new URLSearchParams(new FormData(form))
-      await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
-        method: 'GET',
-        mode: 'no-cors',
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: new FormData(form),
       })
+      const data = await response.json()
+      if (!response.ok || data.status !== 'success') {
+        throw new Error(data.message || `HTTP ${response.status}`)
+      }
       formMsg.className = 'form-msg success'
       formMsg.textContent = '✓ Message envoyé ! Nous vous répondons sous 24h ouvrées.'
       formMsg.style.display = 'block'
       form.reset()
-    } catch {
+    } catch (error) {
+      console.error('Erreur soumission formulaire :', error)
       formMsg.className = 'form-msg error'
       formMsg.textContent = 'Erreur lors de l\'envoi. Écrivez-nous directement à contact@ypepa.com'
       formMsg.style.display = 'block'
@@ -1419,7 +1433,9 @@
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'))
+      const href = a.getAttribute('href')
+      if (!href || href === '#') return
+      const target = document.querySelector(href)
       if (target) {
         e.preventDefault()
         const offset = 80
